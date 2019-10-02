@@ -8,10 +8,33 @@ import Colors from '../constants/colors';
 const StartGameScreen = props => {
 
     const [enteredValue, setEnteredValue] = useState('');
+    const [confirmed, setConfirmed] = useState(false);
+    const [selectedNumber, setSelectedNumber] = useState();
 
     const numberInputHandler = inputText => {
         setEnteredValue(inputText.replace(/[^0-9]/g, ''));
     };
+
+    const resetInputHandler = () => {
+        setEnteredValue('');
+        setConfirmed(false);
+    };
+
+    const confirmInputHandler = () => {
+        const chosenNumber = parseInt(enteredValue);
+        if (chosenNumber === NaN || chosenNumber <= 0 || chosenNumber > 99) {
+            return;
+        }
+        setConfirmed(true);
+        setSelectedNumber(chosenNumber);
+        setEnteredValue('');
+    };
+
+    let confirmedOutput;
+
+    if (confirmed) {
+        confirmedOutput = <Text>Chosen Number: {selectedNumber}</Text>
+    }
 
     return (
         <TouchableWithoutFeedback onPress={() => {
@@ -31,10 +54,11 @@ const StartGameScreen = props => {
                     value={enteredValue}
                     />
                     <View style={styles.buttonContainer}>
-                        <View style={styles.button}><Button color={Colors.accent} title='Reset' onPress={() => {}}/></View>
-                        <View style={styles.button}><Button color={Colors.primary} title='Confirm' onPress={() => {}}/></View>
+                        <View style={styles.button}><Button color={Colors.accent} title='Reset' onPress={resetInputHandler}/></View>
+                        <View style={styles.button}><Button color={Colors.primary} title='Confirm' onPress={confirmInputHandler}/></View>
                     </View>
                 </Card>
+                {confirmedOutput}
             </View>
         </TouchableWithoutFeedback>
     );
@@ -60,7 +84,7 @@ const styles = StyleSheet.create({
         width: '100%',
         justifyContent: 'space-between',
         paddingHorizontal: 15,
-        backgroundColor: 'white'
+        backgroundColor: 'white',
     },
     button: {
         width: 100
