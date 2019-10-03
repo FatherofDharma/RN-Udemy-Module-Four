@@ -6,7 +6,7 @@ A react-native game created with a tutorial from a Udemy course, written on on O
 
 ## Summary
 
-This application is a simple number guessing game created for a tutorial from a Udemy course on react-native.
+This application is a simple number guessing game created for a tutorial from a Udemy course on react-native. This project is from modules 4 & 5.
 
 ## Setup/Installation Requirements
 
